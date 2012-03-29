@@ -6,7 +6,7 @@
  */
 
 (function($) {
-    $.fn.mayusculassintildes = function(settings) {
+    $.fn.mayusculassintildes = function() {
         this.each(function () {
             var $this = $(this);
             if ($this.is('textarea') || $this.is('input:text')) {
