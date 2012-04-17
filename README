@@ -1,0 +1,6 @@
+TO create minified do
+
+
+ant -lib tools/yuicompressor-2.4.7.jar
+
+minified will output in dist/ folder

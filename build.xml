@@ -1,0 +1,14 @@
+<project name="Compressor Test" default="example" basedir=".">
+
+<!-- TODO avoid the need for -lib tools/yuicompressor-2.4.7.jar -->
+        
+        <taskdef resource="yuicompressor.tasks" classpath="tools/yuicompressor-taskdef-1.0.jar"/>
+
+        <target name="example">
+                <yuicompressor linebreak="40" todir="${basedir}/dist">
+                        <fileset dir="${basedir}" includes="*.js"/>
+                        <mapper type="glob" from="*.js" to="*-min.js"/>
+                </yuicompressor>
+        </target>
+
+</project>
