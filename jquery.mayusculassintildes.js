@@ -6,12 +6,24 @@
  */
 
 (function($) {
-    $.fn.mayusculassintildes = function() {
+    $.fn.mayusculassintildes = function(options ) {
+
+        var settings = $.extend( {
+              'allownumbers': false
+            }, options);
+
+
         this.each(function () {
             var $this = $(this);
             if ($this.is('textarea') || $this.is('input:text')) {
                 $this.keypress(function (e) {
-                    var pressedKey = e.charCode == undefined ? e.keyCode : e.charCode;
+
+                    if (e.charCode == 0) { // for firefox
+                        return true;
+                    }
+
+                    var pressedKey = e.charCode;
+
                     // caracteres tildados a su equivalente sin tilde
                     (pressedKey == 225 || pressedKey == 193) ? pressedKey = 97 : ""; //a
                     (pressedKey == 233 || pressedKey == 201) ? pressedKey = 101 : "";//e
@@ -20,8 +32,15 @@
                     (pressedKey == 250 || pressedKey == 218) ? pressedKey = 117 : "";   //u
                     var str = String.fromCharCode(pressedKey);
 
+                    
+                    var regex = /[a-zñ ]/i;
+                    
+                    if (settings.allownumbers) {
+                        regex = /[a-zñ0-9 ]/i;
+                    }
+                    
                     // restrictive REGEX
-                    if (str.match(/[a-zñ ]/i)) {
+                    if (str.match(regex)) {
                         var startpos = this.selectionStart;
                         var endpos = this.selectionEnd;
                         this.value = this.value.substr(0, startpos) + str.toUpperCase() + this.value.substr(endpos);
